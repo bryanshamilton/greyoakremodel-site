@@ -20,55 +20,108 @@ import Layout from '../layouts/Layout.astro';
             and any timeline or budget parameters you're working with.
           </p>
 
-          <!--
-            TODO: Wire up form submission
-            Options:
-            - Formspree: Add action="https://formspree.io/f/YOUR_FORM_ID" method="POST"
-            - Cloudflare Pages Functions: Create functions/contact.ts
-            - Netlify Forms: Add netlify attribute to form
-          -->
-          <form class="contact-form" action="#" method="POST">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" id="name" name="name" class="form-input" required />
-              </div>
-              <div class="form-group">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" name="email" class="form-input" required />
-              </div>
+          <form class="contact-form" id="contact-form">
+            <div id="form-success" class="form-message form-success" hidden>
+              <h3>Message sent.</h3>
+              <p>Thanks for reaching out. We'll be in touch within 1–2 business days.</p>
             </div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="phone" class="form-label">Phone</label>
-                <input type="tel" id="phone" name="phone" class="form-input" />
+            <div id="form-error" class="form-message form-error" hidden>
+              <p>Something went wrong. Please try again or email us directly.</p>
+            </div>
+
+            <div id="form-fields">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" id="name" name="name" class="form-input" required />
+                </div>
+                <div class="form-group">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" id="email" name="email" class="form-input" required />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="city" class="form-label">City</label>
-                <input type="text" id="city" name="city" class="form-input" placeholder="Where in Colorado?" />
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="phone" class="form-label">Phone</label>
+                  <input type="tel" id="phone" name="phone" class="form-input" />
+                </div>
+                <div class="form-group">
+                  <label for="city" class="form-label">City</label>
+                  <input type="text" id="city" name="city" class="form-input" placeholder="Where in Colorado?" />
+                </div>
               </div>
-            </div>
 
-            <div class="form-group">
-              <label for="project-type" class="form-label">Project Type</label>
-              <select id="project-type" name="project-type" class="form-select" required>
-                <option value="">Select a project type</option>
-                <option value="bathroom">Bathroom Remodel</option>
-                <option value="kitchen">Kitchen Remodel</option>
-                <option value="tile">Tile & Finish Work</option>
-                <option value="full-home">Full-Home Remodel</option>
-                <option value="other">Other / Not Sure</option>
-              </select>
-            </div>
+              <div class="form-group">
+                <label for="project-type" class="form-label">Project Type</label>
+                <select id="project-type" name="project-type" class="form-select" required>
+                  <option value="">Select a project type</option>
+                  <option value="Bathroom Remodel">Bathroom Remodel</option>
+                  <option value="Kitchen Remodel">Kitchen Remodel</option>
+                  <option value="Tile & Finish Work">Tile & Finish Work</option>
+                  <option value="Full-Home Remodel">Full-Home Remodel</option>
+                  <option value="Other">Other / Not Sure</option>
+                </select>
+              </div>
 
-            <div class="form-group">
-              <label for="message" class="form-label">Tell us about your project</label>
-              <textarea id="message" name="message" class="form-textarea" rows="5" required></textarea>
-            </div>
+              <div class="form-group">
+                <label for="message" class="form-label">Tell us about your project</label>
+                <textarea id="message" name="message" class="form-textarea" rows="5" required></textarea>
+              </div>
 
-            <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+              <button type="submit" id="submit-btn" class="btn btn-primary btn-full">Send Message</button>
+            </div>
           </form>
+
+          <script>
+            const form = document.getElementById('contact-form') as HTMLFormElement;
+            const formFields = document.getElementById('form-fields');
+            const formSuccess = document.getElementById('form-success');
+            const formError = document.getElementById('form-error');
+            const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+
+            form?.addEventListener('submit', async (e) => {
+              e.preventDefault();
+
+              // Reset error state
+              formError?.setAttribute('hidden', '');
+              submitBtn.disabled = true;
+              submitBtn.textContent = 'Sending...';
+
+              const formData = new FormData(form);
+              const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                city: formData.get('city'),
+                projectType: formData.get('project-type'),
+                message: formData.get('message'),
+              };
+
+              try {
+                const response = await fetch('/api/contact', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                  formFields?.setAttribute('hidden', '');
+                  formSuccess?.removeAttribute('hidden');
+                } else {
+                  throw new Error(result.error || 'Failed to send');
+                }
+              } catch (error) {
+                console.error('Form submission error:', error);
+                formError?.removeAttribute('hidden');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+              }
+            });
+          </script>
         </div>
 
         <div class="contact-info">
@@ -224,5 +277,41 @@ import Layout from '../layouts/Layout.astro';
 
   .credentials-block p:last-child {
     margin-bottom: 0;
+  }
+
+  .form-message {
+    padding: var(--space-lg);
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .form-message h3 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .form-message p {
+    margin: 0;
+  }
+
+  .form-success {
+    background-color: #ecfdf5;
+    border: 1px solid #10b981;
+    color: #065f46;
+  }
+
+  .form-success h3 {
+    color: #065f46;
+  }
+
+  .form-error {
+    background-color: #fef2f2;
+    border: 1px solid #ef4444;
+    color: #991b1b;
+    margin-bottom: var(--space-md);
+  }
+
+  #submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
   }
 </style>

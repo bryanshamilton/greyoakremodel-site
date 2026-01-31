@@ -500,8 +500,8 @@ main {
 /* Diagonal divider - matches design.svg */
 .hero-diagonal {
   position: absolute;
-  top: -20px;
-  bottom: -50px;
+  top: 0;
+  bottom: -8vw;
   left: 36%;
   width: 100px;
   pointer-events: none;
@@ -512,7 +512,7 @@ main {
 
 /* Oak/tan accent - top portion only */
 .hero-diagonal-oak {
-  flex: 0 0 35%;
+  flex: 0 0 20%;
   background-color: var(--color-oak);
   transform: skewX(-15deg);
 }

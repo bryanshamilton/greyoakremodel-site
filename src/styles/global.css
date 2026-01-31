@@ -322,15 +322,20 @@ main {
   gap: var(--space-xl);
 }
 
-.footer-logo img {
-  max-width: 200px;
-  height: auto;
+.footer-logo {
+  display: block;
 }
 
-/* Make logo visible on dark footer background */
+.footer-logo-wrapper {
+  width: 220px;
+  height: 128px;
+  overflow: hidden;
+}
+
 .footer-logo-img {
+  width: 100%;
+  height: auto;
   filter: brightness(0) invert(1);
-  opacity: 0.9;
 }
 
 .footer-brand p {
@@ -495,8 +500,8 @@ main {
 /* Diagonal divider - matches design.svg */
 .hero-diagonal {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: -20px;
+  bottom: -50px;
   left: 36%;
   width: 100px;
   pointer-events: none;
@@ -517,15 +522,14 @@ main {
   flex: 1;
   background-color: var(--color-deep-blue);
   transform: skewX(-15deg);
-  margin-top: 15px;
 }
 
 /* Muted background image on left */
 .hero-bg-image {
   position: absolute;
   left: 0;
-  top: 0;
-  bottom: 0;
+  top: -1px;
+  bottom: -1px;
   width: 40%;
   opacity: 0.35;
   pointer-events: none;

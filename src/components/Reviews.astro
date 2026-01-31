@@ -10,7 +10,13 @@
  * Google Maps listing: https://www.google.com/maps/place/Grey+Oak+Remodel
  */
 
-const googleReviewsUrl = "https://www.google.com/search?q=Grey+Oak+Remodel+Colorado+reviews#";
+/*
+ * TODO: Add direct link to Google reviews when available.
+ * Current options tried:
+ * - Place ID URL: doesn't work (service-area business indexing issue)
+ * - Google Maps URL: shows blank map
+ * - Google search URL: just general search results
+ */
 ---
 
 <section class="section reviews-section" id="reviews">
@@ -30,13 +36,6 @@ const googleReviewsUrl = "https://www.google.com/search?q=Grey+Oak+Remodel+Color
           <span class="star">★</span>
         </div>
         <span class="rating-count">8 reviews on Google</span>
-      </div>
-
-      <div class="reviews-cta">
-        <a href={googleReviewsUrl} target="_blank" rel="noopener noreferrer" class="btn btn-reviews">
-          <img src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" alt="" width="20" height="20" />
-          See All Reviews
-        </a>
       </div>
     </div>
   </div>
@@ -92,30 +91,4 @@ const googleReviewsUrl = "https://www.google.com/search?q=Grey+Oak+Remodel+Color
     margin-top: var(--space-xs);
   }
 
-  .reviews-cta {
-    margin-top: var(--space-sm);
-  }
-
-  .btn-reviews {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-xs);
-    padding: 0.875rem 1.75rem;
-    background-color: var(--color-deep-blue);
-    color: var(--color-white);
-    font-family: var(--font-heading);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-  }
-
-  .btn-reviews:hover {
-    background-color: var(--color-deep-blue-light);
-    color: var(--color-white);
-  }
-
-  .btn-reviews img {
-    display: block;
-  }
 </style>

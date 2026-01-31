@@ -557,9 +557,37 @@ main {
 
 .hero h1 {
   color: var(--color-white);
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  line-height: 1.1;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.15;
   margin-bottom: var(--space-md);
+}
+
+/* Logo positioned on left side of hero */
+.hero-logo-left {
+  position: absolute;
+  left: 20%;
+  transform: translateX(-50%);
+  bottom: var(--space-lg);
+  z-index: 3;
+}
+
+.hero-logo-wrapper {
+  width: 340px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.hero-logo-img {
+  width: 100%;
+  height: auto;
+  filter: brightness(0) saturate(100%) invert(63%) sepia(25%) saturate(567%) hue-rotate(357deg) brightness(91%) contrast(87%);
+}
+
+/* Hide on mobile */
+@media (max-width: 768px) {
+  .hero-logo-left {
+    display: none;
+  }
 }
 
 .hero-tagline {

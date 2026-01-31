@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#e5e3e0"/>
+  <rect x="100" y="100" width="600" height="380" rx="4" fill="#d4d2cf"/>
+  <rect x="120" y="120" width="560" height="340" fill="#f5f4f3"/>
+  <rect x="140" y="140" width="180" height="300" fill="#e8e6e3"/>
+  <rect x="340" y="140" width="320" height="300" fill="#e8e6e3"/>
+  <text x="400" y="540" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#666">Bathroom Rebuild - Before</text>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#e5e3e0"/>
+  <rect x="50" y="150" width="300" height="300" fill="#f5f4f3"/>
+  <rect x="450" y="150" width="300" height="300" fill="#f5f4f3"/>
+  <rect x="350" y="200" width="100" height="200" fill="#c9a66b" opacity="0.2"/>
+  <text x="200" y="480" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#666">Kitchen</text>
+  <text x="600" y="480" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#666">Living</text>
+  <text x="400" y="550" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#666">Open Floor Plan</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#e8e6e3"/>
+  <rect x="200" y="80" width="400" height="400" rx="4" fill="#d4d2cf"/>
+  <rect x="220" y="100" width="360" height="360" fill="#f5f4f3"/>
+  <circle cx="400" cy="180" r="40" fill="#c9a66b" opacity="0.3"/>
+  <rect x="350" y="300" width="100" height="140" fill="#d4d2cf"/>
+  <text x="400" y="540" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#666">Glass Enclosure</text>
+</svg>

@@ -1,0 +1,228 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Contact" description="Get a free consultation for your Colorado remodeling project. Contact Grey Oak Remodel today.">
+  <div class="page-header">
+    <div class="container">
+      <h1>Let's Talk</h1>
+      <p>Free consultations. Honest conversations.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-layout">
+        <div class="contact-form-wrapper">
+          <p class="form-intro">
+            Reach out to start a conversation about your project. Include as much detail
+            as you can—what space you're remodeling, what you're hoping to accomplish,
+            and any timeline or budget parameters you're working with.
+          </p>
+
+          <!--
+            TODO: Wire up form submission
+            Options:
+            - Formspree: Add action="https://formspree.io/f/YOUR_FORM_ID" method="POST"
+            - Cloudflare Pages Functions: Create functions/contact.ts
+            - Netlify Forms: Add netlify attribute to form
+          -->
+          <form class="contact-form" action="#" method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" id="name" name="name" class="form-input" required />
+              </div>
+              <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-input" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="tel" id="phone" name="phone" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="city" class="form-label">City</label>
+                <input type="text" id="city" name="city" class="form-input" placeholder="Where in Colorado?" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="project-type" class="form-label">Project Type</label>
+              <select id="project-type" name="project-type" class="form-select" required>
+                <option value="">Select a project type</option>
+                <option value="bathroom">Bathroom Remodel</option>
+                <option value="kitchen">Kitchen Remodel</option>
+                <option value="tile">Tile & Finish Work</option>
+                <option value="full-home">Full-Home Remodel</option>
+                <option value="other">Other / Not Sure</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">Tell us about your project</label>
+              <textarea id="message" name="message" class="form-textarea" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+          </form>
+        </div>
+
+        <div class="contact-info">
+          <div class="info-block">
+            <h3>What Happens Next</h3>
+            <ul class="next-steps">
+              <li>We'll respond within 1–2 business days to acknowledge your message</li>
+              <li>We'll schedule a consultation at your home to walk through the space</li>
+              <li>You'll receive a detailed proposal if we're a good fit—no obligation</li>
+            </ul>
+          </div>
+
+          <div class="info-block">
+            <h3>Prefer to call or email?</h3>
+            <!-- TODO: Replace with actual phone number -->
+            <p>
+              <a href="tel:+1XXXXXXXXXX" class="contact-link">
+                <span class="contact-label">Phone</span>
+                <span>Call Us</span>
+              </a>
+            </p>
+            <p>
+              <a href="mailto:hello@greyoakremodel.com" class="contact-link">
+                <span class="contact-label">Email</span>
+                <span>hello@greyoakremodel.com</span>
+              </a>
+            </p>
+          </div>
+
+          <div class="info-block">
+            <h3>Service Area</h3>
+            <p>We serve homeowners throughout Colorado.</p>
+          </div>
+
+          <div class="info-block credentials-block">
+            <p>Licensed & Insured in Colorado</p>
+            <p>Free Consultations</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .contact-layout {
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 1024px) {
+    .contact-layout {
+      grid-template-columns: 1.2fr 1fr;
+      align-items: start;
+    }
+  }
+
+  .form-intro {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+  }
+
+  .contact-form {
+    background-color: var(--color-white);
+    padding: var(--space-lg);
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+  }
+
+  .form-row {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 640px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .btn-full {
+    width: 100%;
+  }
+
+  .contact-info {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .info-block h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .info-block p {
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .next-steps {
+    list-style: none;
+    padding: 0;
+  }
+
+  .next-steps li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: var(--space-sm);
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+  }
+
+  .next-steps li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+  }
+
+  .contact-link {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-text);
+    transition: color 0.2s ease;
+  }
+
+  .contact-link:hover {
+    color: var(--color-accent);
+  }
+
+  .contact-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  .credentials-block {
+    padding: var(--space-md);
+    background-color: var(--color-bg-alt);
+    border-radius: 8px;
+  }
+
+  .credentials-block p {
+    margin-bottom: var(--space-xs);
+    font-weight: 500;
+    color: var(--color-slate);
+  }
+
+  .credentials-block p:last-child {
+    margin-bottom: 0;
+  }
+</style>

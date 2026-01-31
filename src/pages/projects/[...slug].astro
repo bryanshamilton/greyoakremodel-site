@@ -1,0 +1,152 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long'
+  });
+};
+---
+
+<Layout title={project.data.title} description={`${project.data.title} - A remodeling project by Grey Oak Remodel in Colorado.`}>
+  <div class="page-header">
+    <div class="container">
+      <a href="/portfolio" class="back-link">&larr; Back to Portfolio</a>
+      <h1>{project.data.title}</h1>
+      <div class="project-meta">
+        <span>{formatDate(project.data.date)}</span>
+        {project.data.location && <span>{project.data.location}</span>}
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="project-layout">
+        <div class="project-gallery">
+          <div class="gallery">
+            <div class="gallery-main">
+              <img
+                src={project.data.images[0]}
+                alt={project.data.title}
+                id="main-image"
+              />
+            </div>
+            {project.data.images.length > 1 && (
+              <div class="gallery-thumbs">
+                {project.data.images.map((image, index) => (
+                  <button
+                    class:list={["gallery-thumb", { active: index === 0 }]}
+                    data-src={image}
+                  >
+                    <img src={image} alt={`${project.data.title} - Image ${index + 1}`} />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div class="project-content">
+          <div class="project-tags">
+            {project.data.tags.map((tag) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+
+          <div class="project-description">
+            <Content />
+          </div>
+
+          <div class="project-cta">
+            <h3>Planning something similar?</h3>
+            <p>We'd love to hear about your project.</p>
+            <a href="/contact" class="btn btn-primary">Get a Free Consultation</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const mainImage = document.getElementById('main-image') as HTMLImageElement;
+  const thumbs = document.querySelectorAll('.gallery-thumb');
+
+  thumbs.forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const src = thumb.getAttribute('data-src');
+      if (src && mainImage) {
+        mainImage.src = src;
+        thumbs.forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+      }
+    });
+  });
+</script>
+
+<style>
+  .back-link {
+    display: inline-block;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-sm);
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+  }
+
+  .project-layout {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 1024px) {
+    .project-layout {
+      grid-template-columns: 1.5fr 1fr;
+      align-items: start;
+    }
+  }
+
+  .project-description {
+    margin: var(--space-lg) 0;
+    line-height: 1.7;
+  }
+
+  .project-description :global(p) {
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+  }
+
+  .project-cta {
+    background-color: var(--color-bg-alt);
+    padding: var(--space-lg);
+    border-radius: 8px;
+    margin-top: var(--space-lg);
+  }
+
+  .project-cta h3 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .project-cta p {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+  }
+</style>

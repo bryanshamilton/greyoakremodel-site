@@ -1,0 +1,147 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+const recentProjects = projects
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+---
+
+<Layout title="Home">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-tagline">Elevating homes with purpose and passion.</p>
+        <h1>Remodeling done right. Built to last.</h1>
+        <p>
+          Bathroom, kitchen, and whole-home remodeling for Colorado homeowners
+          who value craftsmanship over shortcuts.
+        </p>
+        <div class="hero-ctas">
+          <a href="/contact" class="btn btn-primary">Get a Free Consultation</a>
+          <a href="/portfolio" class="btn btn-secondary">View Recent Work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Block -->
+  <section class="section">
+    <div class="container">
+      <div class="card-grid-4">
+        <div class="service-card">
+          <h3>Licensed & Insured</h3>
+          <p>Fully covered. Permits pulled. Your home is protected.</p>
+        </div>
+        <div class="service-card">
+          <h3>Clear Communication</h3>
+          <p>You'll know what's happening, when, and why. No chasing us down.</p>
+        </div>
+        <div class="service-card">
+          <h3>Clean Jobsites</h3>
+          <p>We work in your home like it's our own. Dust barriers up, debris hauled.</p>
+        </div>
+        <div class="service-card">
+          <h3>Craftsmanship First</h3>
+          <p>Details matter. We take the time to get them right.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Preview -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>What We Build</h2>
+        <p>Focused expertise in the work that matters most.</p>
+      </div>
+      <div class="card-grid-4">
+        <a href="/services#bathroom" class="service-card">
+          <h3>Bathroom Remodels</h3>
+          <p>Our primary focus. From tile showers to complete renovations—this is where our experience runs deepest.</p>
+        </a>
+        <a href="/services#kitchen" class="service-card">
+          <h3>Kitchen Remodels</h3>
+          <p>Functional layouts, quality materials, and finishes that hold up to daily life.</p>
+        </a>
+        <a href="/services#tile" class="service-card">
+          <h3>Tile & Finish Work</h3>
+          <p>Precision installation of tile, stone, and trim. The details that elevate a space.</p>
+        </a>
+        <a href="/services#full-home" class="service-card">
+          <h3>Select Full-Home</h3>
+          <p>For the right projects, we coordinate comprehensive renovations from start to finish.</p>
+        </a>
+      </div>
+      <div class="text-center mt-lg">
+        <a href="/services" class="btn btn-secondary">View All Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Work -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Recent Work</h2>
+        <p>Real projects from our crew. Updated from the field.</p>
+      </div>
+      <div class="card-grid">
+        {recentProjects.map((project) => (
+          <a href={`/projects/${project.id}`} class="card">
+            <div class="card-image">
+              <img src={project.data.images[0]} alt={project.data.title} loading="lazy" />
+            </div>
+            <div class="card-content">
+              <span class="card-tag">{project.data.tags[0]}</span>
+              <h3>{project.data.title}</h3>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="text-center mt-lg">
+        <a href="/portfolio" class="btn btn-secondary">View Full Portfolio</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Fit -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="project-fit" style="max-width: 800px; margin: 0 auto;">
+        <h3>We're selective about the projects we take on.</h3>
+        <p class="mt-sm">
+          Not every project is the right fit—and we'd rather be upfront about that.
+        </p>
+        <p>
+          Grey Oak is built for homeowners who value quality materials, skilled labor,
+          and work that's done right the first time. We're not the lowest bid, and we
+          don't cut corners to get there.
+        </p>
+        <p>
+          If you're looking for the cheapest option or need something done fast regardless
+          of quality, we're probably not your contractor. But if you want a remodel that
+          lasts—one you'll still be proud of in ten years—we should talk.
+        </p>
+        <div class="mt-lg">
+          <a href="/contact" class="btn btn-primary">Get a Free Consultation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to talk about your project?</h2>
+      <p>
+        Consultations are free. We'll walk through your space, discuss what you're
+        hoping to accomplish, and give you an honest assessment.
+      </p>
+      <a href="/contact" class="btn btn-primary">Schedule a Consultation</a>
+    </div>
+  </section>
+</Layout>

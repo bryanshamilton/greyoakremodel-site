@@ -1,0 +1,143 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+const sortedProjects = projects.sort((a, b) =>
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<Layout title="Portfolio" description="Browse completed remodeling projects from Grey Oak Remodel. Bathrooms, kitchens, and whole-home renovations in Colorado.">
+  <div class="page-header">
+    <div class="container">
+      <h1>Our Work</h1>
+      <p>Real projects. Real homes. See what we build.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="portfolio-intro">
+        <p>
+          Browse completed projects from our team. Each entry includes photos and a brief
+          description of the work—what we did, what materials we used, and how it came together.
+        </p>
+        <p>
+          These projects are synced directly from the field, so you're seeing our latest work
+          as it's finished. No stock photos. No borrowed portfolios. What's here is what we've built.
+        </p>
+      </div>
+
+      <div class="portfolio-filters">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="bathroom">Bathrooms</button>
+        <button class="filter-btn" data-filter="kitchen">Kitchens</button>
+        <button class="filter-btn" data-filter="full-home">Full-Home</button>
+      </div>
+
+      <div class="card-grid" id="project-grid">
+        {sortedProjects.map((project) => (
+          <a
+            href={`/projects/${project.id}`}
+            class="card project-card"
+            data-tags={project.data.tags.join(' ')}
+          >
+            <div class="card-image">
+              <img src={project.data.images[0]} alt={project.data.title} loading="lazy" />
+            </div>
+            <div class="card-content">
+              <span class="card-tag">{project.data.tags[0]}</span>
+              <h3>{project.data.title}</h3>
+              {project.data.location && (
+                <p class="project-location">{project.data.location}</p>
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {sortedProjects.length === 0 && (
+        <p class="text-center text-muted">New projects coming soon.</p>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Planning something similar?</h2>
+      <p>Let's talk about your project. Free consultations, no obligation.</p>
+      <a href="/contact" class="btn btn-primary">Get a Free Consultation</a>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter') ?? 'all';
+
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      projectCards.forEach(card => {
+        const tags = card.getAttribute('data-tags') ?? '';
+        if (filter === 'all' || tags.includes(filter)) {
+          (card as HTMLElement).style.display = 'block';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .portfolio-intro {
+    max-width: 700px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .portfolio-intro p {
+    color: var(--color-text-muted);
+  }
+
+  .portfolio-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-family: inherit;
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .filter-btn.active {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-white);
+  }
+
+  .project-location {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-xs);
+  }
+</style>

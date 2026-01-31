@@ -1,0 +1,188 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About" description="Grey Oak Remodel - Premium bathroom, kitchen, and whole-home remodeling in Colorado. Built on craftsmanship, grounded in integrity.">
+  <div class="page-header">
+    <div class="container">
+      <h1>Why Grey Oak Exists</h1>
+      <p>Pride in the details. Respect for your home.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text">
+          <p class="lead">
+            We started Grey Oak because we got tired of watching remodeling done poorly.
+          </p>
+          <p>
+            Corners cut to save an hour. Materials swapped without telling the homeowner.
+            Tile work that looks fine until you notice every line is slightly off.
+            Contractors who disappear mid-project or finish with a shrug and a "good enough."
+          </p>
+          <p>
+            That's not how we work.
+          </p>
+          <p>
+            We believe a remodel should be built to last—not just look good on day one,
+            but hold up for years. That means proper waterproofing behind every shower.
+            Level tile with consistent grout lines. Trim that's coped, not caulked.
+            The details that most people won't notice, but that make the difference
+            between work that endures and work that doesn't.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>What Drives Us</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-item">
+          <h3>The details are the work.</h3>
+          <p>
+            Anyone can install tile. Installing it level, plumb, with clean lines and
+            proper substrate prep—that's the job. We don't skip steps.
+          </p>
+        </div>
+        <div class="value-item">
+          <h3>Your home deserves respect.</h3>
+          <p>
+            We're guests in your space. That means clean jobsites, clear communication,
+            and treating your home like we'd want ours treated.
+          </p>
+        </div>
+        <div class="value-item">
+          <h3>Honesty over salesmanship.</h3>
+          <p>
+            We'll tell you what a project actually costs, how long it will actually take,
+            and whether we're actually the right fit. No games.
+          </p>
+        </div>
+        <div class="value-item">
+          <h3>Quality over volume.</h3>
+          <p>
+            We're not trying to run ten jobs at once. We take on what we can do well,
+            and we do it well.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text">
+          <h2>What We're Not</h2>
+          <p>
+            We're not a handyman service. We're not the cheapest option. We don't do
+            "quick and dirty" or "good enough for now."
+          </p>
+          <p>
+            If that's what you need, no hard feelings—but we're not your contractor.
+          </p>
+          <p>
+            If you want work done right, by people who care about the craft, we should talk.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="credentials">
+        <div class="credential">
+          <h3>Licensed & Insured</h3>
+          <p>Fully covered in Colorado. Permits pulled. Your home is protected.</p>
+        </div>
+        <div class="credential">
+          <h3>Free Consultations</h3>
+          <p>No obligation. Just an honest conversation about your project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Let's talk about your project.</h2>
+      <p>We'd love to hear what you're planning.</p>
+      <a href="/contact" class="btn btn-primary">Get a Free Consultation</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .about-content {
+    max-width: 700px;
+  }
+
+  .about-text .lead {
+    font-size: 1.25rem;
+    color: var(--color-slate);
+    font-weight: 500;
+    margin-bottom: var(--space-lg);
+  }
+
+  .about-text p {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+  }
+
+  .about-text h2 {
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .values-grid {
+    display: grid;
+    gap: var(--space-lg);
+    max-width: 900px;
+  }
+
+  @media (min-width: 768px) {
+    .values-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .value-item h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .value-item p {
+    color: var(--color-text-muted);
+  }
+
+  .credentials {
+    display: grid;
+    gap: var(--space-lg);
+    max-width: 600px;
+  }
+
+  @media (min-width: 640px) {
+    .credentials {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .credential h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .credential p {
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+</style>

@@ -1,0 +1,96 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Grey Oak Remodel - Premium bathroom, kitchen, and whole-home remodeling in Colorado. Licensed & insured. Free consultations." } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>{title} | Grey Oak Remodel</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="/" class="logo">Grey <span>Oak</span></a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="main-nav" id="main-nav">
+          <ul class="nav-list">
+            <li><a href="/" class:list={["nav-link", { active: currentPath === "/" }]}>Home</a></li>
+            <li><a href="/services" class:list={["nav-link", { active: currentPath === "/services" }]}>Services</a></li>
+            <li><a href="/portfolio" class:list={["nav-link", { active: currentPath.startsWith("/portfolio") || currentPath.startsWith("/projects") }]}>Portfolio</a></li>
+            <li><a href="/process" class:list={["nav-link", { active: currentPath === "/process" }]}>Process</a></li>
+            <li><a href="/about" class:list={["nav-link", { active: currentPath === "/about" }]}>About</a></li>
+            <li><a href="/contact" class="btn btn-primary">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-inner">
+          <div class="footer-brand">
+            <a href="/" class="logo">Grey <span>Oak</span></a>
+            <p>Elevating homes with purpose and passion.</p>
+            <p class="mt-sm">Licensed & Insured in Colorado</p>
+          </div>
+          <div class="footer-nav">
+            <h4>Navigation</h4>
+            <ul>
+              <li><a href="/services">Services</a></li>
+              <li><a href="/portfolio">Portfolio</a></li>
+              <li><a href="/process">Process</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact">
+            <h4>Contact</h4>
+            <p>Free consultations available.</p>
+            <!-- TODO: Replace with actual phone and email -->
+            <p class="mt-sm"><a href="tel:+1XXXXXXXXXX">Call Us</a></p>
+            <p><a href="mailto:hello@greyoakremodel.com">hello@greyoakremodel.com</a></p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; {new Date().getFullYear()} Grey Oak Remodel. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const navToggle = document.querySelector('.nav-toggle');
+      const mainNav = document.querySelector('#main-nav');
+
+      navToggle?.addEventListener('click', () => {
+        const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', (!isExpanded).toString());
+        mainNav?.classList.toggle('active');
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

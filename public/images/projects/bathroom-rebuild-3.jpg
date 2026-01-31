@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#e5e3e0"/>
+  <rect x="150" y="80" width="500" height="420" rx="4" fill="#d4d2cf"/>
+  <rect x="170" y="100" width="460" height="380" fill="#f5f4f3"/>
+  <rect x="190" y="400" width="420" height="60" fill="#e8e6e3"/>
+  <line x1="400" y1="100" x2="400" y2="400" stroke="#c9a66b" stroke-width="2" stroke-dasharray="4"/>
+  <text x="400" y="550" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#666">Walk-In Shower Complete</text>
+</svg>

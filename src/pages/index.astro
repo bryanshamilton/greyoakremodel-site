@@ -23,10 +23,19 @@ function getThumbnail(media: Array<{ type: 'image' | 'video'; url: string; poste
 <Layout title="Home">
   <!-- Hero Section -->
   <section class="hero">
-    <div class="container">
+    <!-- Diagonal divider with oak/tan accent at top -->
+    <div class="hero-diagonal">
+      <div class="hero-diagonal-oak"></div>
+      <div class="hero-diagonal-blue"></div>
+    </div>
+    <!-- Muted background image -->
+    <div class="hero-bg-image">
+      <img src="/images/hero-bg.jpg" alt="" aria-hidden="true" />
+    </div>
+    <div class="container hero-container">
       <div class="hero-content">
-        <p class="hero-tagline">Elevating homes with purpose and passion.</p>
-        <h1>Remodeling done right. Built to last.</h1>
+        <p class="hero-tagline">Colorado's Premier Remodeling</p>
+        <h1>Remodeling done right.<br/>Built to last.</h1>
         <p>
           Bathroom, kitchen, and whole-home remodeling for Colorado homeowners
           who value craftsmanship over shortcuts.

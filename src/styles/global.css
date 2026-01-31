@@ -1,21 +1,38 @@
 /* Grey Oak Remodel - Global Styles */
+/* Design System: 60% white / 30% deep blue / 10% oak/tan */
 
 :root {
-  /* Colors - matched to logo */
-  --color-slate: #14384d;
-  --color-slate-light: #1e4a5f;
-  --color-accent: #c9a227;
-  --color-accent-dark: #b8922a;
-  --color-bg: #fafafa;
-  --color-bg-alt: #f0efed;
-  --color-text: #333333;
-  --color-text-muted: #666666;
+  /* Core Brand Colors - matched to design.svg */
+  --color-deep-blue: #164059;        /* Primary brand - solid, calm, professional */
+  --color-deep-blue-light: #1d5573;  /* Lighter deep blue for hover states */
+  --color-deep-blue-dark: #0f2d3f;   /* Darker deep blue for depth */
+  --color-oak: #B8976C;              /* Accent - natural, craftsmanship, upscale */
+  --color-oak-dark: #a3845d;         /* Darker oak for hover states */
+  --color-oak-light: #c9a97d;        /* Lighter oak for subtle accents */
+  --color-white: #ffffff;            /* Backgrounds and breathing room */
+  --color-charcoal: #2d3436;         /* Body text - soft black */
+  --color-charcoal-light: #636e72;   /* Muted body text */
+
+  /* Semantic Color Aliases */
+  --color-primary: var(--color-deep-blue);
+  --color-primary-light: var(--color-deep-blue-light);
+  --color-accent: var(--color-oak);
+  --color-accent-dark: var(--color-oak-dark);
+  --color-bg: var(--color-white);
+  --color-bg-alt: #f8f9fa;           /* Very light gray for sections */
+  --color-text: var(--color-charcoal);
+  --color-text-muted: var(--color-charcoal-light);
   --color-border: #e2e2e2;
-  --color-white: #ffffff;
+
+  /* Legacy aliases for compatibility */
+  --color-slate: var(--color-deep-blue);
+  --color-slate-light: var(--color-deep-blue-light);
 
   /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-serif: 'Georgia', 'Times New Roman', serif;
+  --font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: var(--font-body);
+  --font-serif: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
 
   /* Spacing */
   --space-xs: 0.5rem;
@@ -44,7 +61,7 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   color: var(--color-text);
   background-color: var(--color-bg);
   line-height: 1.6;
@@ -68,9 +85,10 @@ ul, ol {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
   font-weight: 600;
   line-height: 1.2;
-  color: var(--color-slate);
+  color: var(--color-deep-blue);
 }
 
 h1 {
@@ -103,8 +121,9 @@ p {
 .btn {
   display: inline-block;
   padding: 0.875rem 1.75rem;
+  font-family: var(--font-heading);
   font-size: 0.9375rem;
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
   border-radius: 4px;
   border: none;
@@ -112,34 +131,59 @@ p {
   transition: all 0.2s ease;
 }
 
+/* Default primary button - deep blue (for white backgrounds) */
 .btn-primary {
-  background-color: var(--color-accent);
+  background-color: var(--color-deep-blue);
   color: var(--color-white);
 }
 
 .btn-primary:hover {
-  background-color: var(--color-accent-dark);
+  background-color: var(--color-deep-blue-light);
 }
 
-.btn-secondary {
-  background-color: transparent;
-  color: var(--color-slate);
-  border: 1px solid var(--color-slate);
-}
-
-.btn-secondary:hover {
-  background-color: var(--color-slate);
+/* Oak/tan accent button - used sparingly per 60/30/10 rule */
+.btn-accent {
+  background-color: var(--color-oak);
   color: var(--color-white);
 }
 
-/* Header */
+.btn-accent:hover {
+  background-color: var(--color-oak-dark);
+}
+
+/* Secondary button - deep blue outline */
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-deep-blue);
+  border: 2px solid var(--color-deep-blue);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-deep-blue);
+  color: var(--color-white);
+}
+
+/* White outline button - for dark backgrounds */
+.btn-outline-white {
+  background-color: transparent;
+  color: var(--color-white);
+  border: 2px solid var(--color-white);
+}
+
+.btn-outline-white:hover {
+  background-color: var(--color-white);
+  color: var(--color-deep-blue);
+}
+
+/* Header - White bg, deep blue nav, deep blue CTA */
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: var(--header-height);
-  background-color: var(--color-slate);
+  background-color: var(--color-white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   z-index: 1000;
 }
 
@@ -156,7 +200,7 @@ p {
 }
 
 .logo-img {
-  height: 50px;
+  height: 72px;
   width: auto;
 }
 
@@ -174,7 +218,7 @@ p {
   display: block;
   width: 24px;
   height: 2px;
-  background-color: var(--color-white);
+  background-color: var(--color-deep-blue);
   transition: all 0.2s ease;
 }
 
@@ -184,8 +228,8 @@ p {
   top: var(--header-height);
   left: 0;
   right: 0;
-  background-color: var(--color-slate);
-  border-bottom: 1px solid var(--color-slate-light);
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
   padding: var(--space-md);
 }
 
@@ -203,13 +247,37 @@ p {
   display: block;
   padding: var(--space-xs) 0;
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-heading);
+  font-weight: 500;
+  color: var(--color-deep-blue);
   transition: color 0.2s ease;
 }
 
-.nav-link:hover,
+.nav-link:hover {
+  color: var(--color-oak);
+}
+
 .nav-link.active {
-  color: var(--color-accent);
+  color: var(--color-deep-blue);
+  border-bottom: 2px solid var(--color-oak);
+}
+
+/* Header CTA button - deep blue with white text */
+.nav-cta {
+  display: inline-block;
+  padding: 0.625rem 1.25rem;
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 600;
+  background-color: var(--color-deep-blue);
+  color: var(--color-white);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.nav-cta:hover {
+  background-color: var(--color-deep-blue-light);
+  color: var(--color-white);
 }
 
 @media (min-width: 768px) {
@@ -242,9 +310,9 @@ main {
   padding-top: var(--header-height);
 }
 
-/* Footer */
+/* Footer - Deep blue bg, muted white text, oak/tan accents */
 .site-footer {
-  background-color: var(--color-slate);
+  background-color: var(--color-deep-blue);
   color: var(--color-white);
   padding: var(--space-2xl) 0 var(--space-lg);
 }
@@ -259,6 +327,12 @@ main {
   height: auto;
 }
 
+/* Make logo visible on dark footer background */
+.footer-logo-img {
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+
 .footer-brand p {
   color: rgba(255, 255, 255, 0.7);
   margin-top: var(--space-sm);
@@ -268,10 +342,25 @@ main {
 .footer-nav h4,
 .footer-contact h4 {
   color: var(--color-white);
+  font-family: var(--font-heading);
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: var(--space-sm);
+  position: relative;
+  padding-bottom: var(--space-xs);
+}
+
+/* Oak/tan accent line under footer headings */
+.footer-nav h4::after,
+.footer-contact h4::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background-color: var(--color-oak);
 }
 
 .footer-nav ul {
@@ -287,7 +376,7 @@ main {
 }
 
 .footer-nav a:hover {
-  color: var(--color-accent);
+  color: var(--color-oak);
 }
 
 .footer-contact p {
@@ -295,14 +384,20 @@ main {
   font-size: 0.9375rem;
 }
 
+/* Oak/tan accent for contact links */
 .footer-contact a {
-  color: var(--color-accent);
+  color: var(--color-oak);
+  transition: color 0.2s ease;
+}
+
+.footer-contact a:hover {
+  color: var(--color-oak-light);
 }
 
 .footer-bottom {
   margin-top: var(--space-xl);
   padding-top: var(--space-md);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   text-align: center;
 }
 
@@ -317,21 +412,24 @@ main {
   }
 }
 
-/* Sections */
+/* Sections - Following 60/30/10 rule */
 .section {
   padding: var(--space-2xl) 0;
+  background-color: var(--color-white);
 }
 
 .section-lg {
   padding: var(--space-3xl) 0;
 }
 
+/* Light gray alternate section - still part of 60% white/neutral */
 .section-alt {
   background-color: var(--color-bg-alt);
 }
 
+/* Deep blue section - 30% of design */
 .section-dark {
-  background-color: var(--color-slate);
+  background-color: var(--color-deep-blue);
   color: var(--color-white);
 }
 
@@ -340,44 +438,139 @@ main {
   color: var(--color-white);
 }
 
+.section-dark p {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Oak/tan accent elements in dark sections */
+.section-dark .accent-text {
+  color: var(--color-oak);
+}
+
+.section-dark .btn-accent {
+  background-color: var(--color-oak);
+  color: var(--color-white);
+}
+
+.section-dark .btn-accent:hover {
+  background-color: var(--color-oak-dark);
+}
+
 .section-header {
   text-align: center;
   margin-bottom: var(--space-xl);
 }
 
+.section-header h2 {
+  color: var(--color-deep-blue);
+}
+
 .section-header p {
-  color: var(--color-text-muted);
+  color: var(--color-charcoal-light);
   max-width: 600px;
   margin: var(--space-sm) auto 0;
 }
 
-/* Hero */
+/* Section header with oak/tan underline */
+.section-header-accent h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-oak);
+  margin: var(--space-sm) auto 0;
+}
+
+/* Hero - Deep blue bg, white text, oak/tan CTA (matches design.svg) */
 .hero {
-  min-height: 80vh;
+  position: relative;
+  min-height: 50vh;
   display: flex;
   align-items: center;
-  background-color: var(--color-bg-alt);
-  padding: var(--space-2xl) 0;
+  background-color: var(--color-deep-blue);
+  padding: var(--space-xl) 0;
+  overflow: hidden;
+}
+
+/* Diagonal divider - matches design.svg */
+.hero-diagonal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 36%;
+  width: 100px;
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Oak/tan accent - top portion only */
+.hero-diagonal-oak {
+  flex: 0 0 35%;
+  background-color: var(--color-oak);
+  transform: skewX(-15deg);
+}
+
+/* Deep blue - bottom portion with cutout effect */
+.hero-diagonal-blue {
+  flex: 1;
+  background-color: var(--color-deep-blue);
+  transform: skewX(-15deg);
+  margin-top: 15px;
+}
+
+/* Muted background image on left */
+.hero-bg-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40%;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-bg-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .hero-content {
-  max-width: 700px;
+  max-width: 600px;
+  text-align: right;
 }
 
 .hero h1 {
+  color: var(--color-white);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.1;
   margin-bottom: var(--space-md);
 }
 
 .hero-tagline {
-  font-size: 1.125rem;
-  color: var(--color-accent);
-  font-weight: 500;
-  margin-bottom: var(--space-xs);
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-oak);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
 }
 
 .hero p {
   font-size: 1.125rem;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: var(--space-lg);
 }
 
@@ -385,6 +578,61 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
+  justify-content: flex-end;
+}
+
+/* Mobile: center content */
+@media (max-width: 768px) {
+  .hero-bg-image {
+    left: 0;
+    right: 0;
+    width: 100%;
+    opacity: 0.15;
+  }
+
+  .hero-container {
+    justify-content: center;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-ctas {
+    justify-content: center;
+  }
+
+  .hero-diagonal {
+    display: none;
+  }
+}
+
+/* Hero primary CTA - oak/tan button */
+.hero .btn-primary,
+.btn-hero-primary {
+  background-color: var(--color-oak);
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+.hero .btn-primary:hover,
+.btn-hero-primary:hover {
+  background-color: var(--color-oak-dark);
+}
+
+/* Hero secondary CTA - white outline */
+.hero .btn-secondary,
+.btn-hero-secondary {
+  background-color: transparent;
+  color: var(--color-white);
+  border: 2px solid var(--color-white);
+}
+
+.hero .btn-secondary:hover,
+.btn-hero-secondary:hover {
+  background-color: var(--color-white);
+  color: var(--color-deep-blue);
 }
 
 /* Cards */
@@ -422,6 +670,7 @@ main {
   }
 }
 
+/* Project/Portfolio Cards - White bg, deep blue titles, oak/tan hover */
 .card {
   background-color: var(--color-white);
   border-radius: 8px;
@@ -435,6 +684,27 @@ main {
   transform: translateY(-2px);
 }
 
+/* Oak/tan border accent on hover */
+.card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--color-oak);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.card {
+  position: relative;
+}
+
+.card:hover::after {
+  transform: scaleX(1);
+}
+
 .card-image {
   aspect-ratio: 4 / 3;
   background-color: var(--color-bg-alt);
@@ -445,6 +715,11 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-image img {
+  transform: scale(1.03);
 }
 
 .card-content {
@@ -452,59 +727,107 @@ main {
 }
 
 .card-content h3 {
+  color: var(--color-deep-blue);
   margin-bottom: var(--space-xs);
 }
 
 .card-content p {
-  color: var(--color-text-muted);
+  color: var(--color-charcoal);
   font-size: 0.9375rem;
 }
 
+/* Card tag - oak/tan accent */
 .card-tag {
   display: inline-block;
+  font-family: var(--font-heading);
   font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-accent);
+  letter-spacing: 0.08em;
+  color: var(--color-oak);
+  font-weight: 600;
   margin-bottom: var(--space-xs);
 }
 
-/* Service Cards */
+/* View Project link - deep blue */
+.card-link,
+.view-project {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-deep-blue);
+  margin-top: var(--space-sm);
+  transition: color 0.2s ease;
+}
+
+.card-link:hover,
+.view-project:hover {
+  color: var(--color-oak);
+}
+
+/* Service Cards - White bg, deep blue headings, oak/tan accent on hover */
 .service-card {
   padding: var(--space-lg);
   background-color: var(--color-white);
   border-radius: 8px;
   border: 1px solid var(--color-border);
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .service-card:hover {
-  border-color: var(--color-accent);
+  border-color: var(--color-oak);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .service-card h3 {
+  color: var(--color-deep-blue);
   margin-bottom: var(--space-sm);
 }
 
 .service-card p {
-  color: var(--color-text-muted);
+  color: var(--color-charcoal);
   font-size: 0.9375rem;
+}
+
+/* Service card icon/number highlight - oak/tan accent */
+.service-card-icon,
+.service-card .icon {
+  color: var(--color-oak);
+  margin-bottom: var(--space-sm);
+}
+
+/* Oak/tan underline for section titles */
+.section-title-underline {
+  display: inline-block;
+  position: relative;
+}
+
+.section-title-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-oak);
 }
 
 /* Project Fit */
 .project-fit {
   background-color: var(--color-white);
   border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-oak);
   border-radius: 8px;
   padding: var(--space-lg);
 }
 
 .project-fit h3 {
+  color: var(--color-deep-blue);
   margin-bottom: var(--space-sm);
 }
 
 .project-fit p {
-  color: var(--color-text-muted);
+  color: var(--color-charcoal);
 }
 
 /* Forms */
@@ -514,10 +837,11 @@ main {
 
 .form-label {
   display: block;
+  font-family: var(--font-heading);
   font-size: 0.875rem;
   font-weight: 500;
   margin-bottom: var(--space-xs);
-  color: var(--color-slate);
+  color: var(--color-deep-blue);
 }
 
 .form-input,
@@ -526,18 +850,20 @@ main {
   width: 100%;
   padding: 0.75rem 1rem;
   font-size: 1rem;
-  font-family: inherit;
+  font-family: var(--font-body);
   border: 1px solid var(--color-border);
   border-radius: 4px;
   background-color: var(--color-white);
-  transition: border-color 0.2s ease;
+  color: var(--color-charcoal);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: var(--color-accent);
+  border-color: var(--color-oak);
+  box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.15);
 }
 
 .form-textarea {
@@ -545,7 +871,38 @@ main {
   resize: vertical;
 }
 
-/* Process Steps */
+/* Form submit button - oak/tan accent */
+.form-submit,
+.btn-submit {
+  background-color: var(--color-oak);
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  padding: 0.875rem 2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-submit:hover,
+.btn-submit:hover {
+  background-color: var(--color-oak-dark);
+}
+
+/* Dark background form styles */
+.section-dark .form-label {
+  color: var(--color-white);
+}
+
+.section-dark .form-input,
+.section-dark .form-select,
+.section-dark .form-textarea {
+  background-color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+/* Process Steps - Oak/tan step numbers as accent */
 .process-steps {
   display: grid;
   gap: var(--space-lg);
@@ -556,25 +913,37 @@ main {
   gap: var(--space-sm);
 }
 
+/* Step number - oak/tan accent (10% rule) */
 .step-number {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 48px;
   height: 48px;
-  background-color: var(--color-accent);
+  background-color: var(--color-oak);
   color: var(--color-white);
-  font-weight: 600;
+  font-family: var(--font-heading);
+  font-weight: 700;
   font-size: 1.25rem;
   border-radius: 50%;
 }
 
 .step-content h3 {
+  color: var(--color-deep-blue);
   margin-bottom: var(--space-xs);
 }
 
 .step-content p {
-  color: var(--color-text-muted);
+  color: var(--color-charcoal);
+}
+
+/* Process steps in dark section */
+.section-dark .step-content h3 {
+  color: var(--color-white);
+}
+
+.section-dark .step-content p {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 @media (min-width: 768px) {
@@ -616,12 +985,18 @@ main {
   overflow: hidden;
   cursor: pointer;
   opacity: 0.7;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+  border: 2px solid transparent;
 }
 
-.gallery-thumb:hover,
+.gallery-thumb:hover {
+  opacity: 1;
+  border-color: var(--color-oak);
+}
+
 .gallery-thumb.active {
   opacity: 1;
+  border-color: var(--color-deep-blue);
 }
 
 .gallery-thumb img {
@@ -630,15 +1005,19 @@ main {
   object-fit: cover;
 }
 
-/* Page Headers */
+/* Page Headers - Deep blue background per design system */
 .page-header {
-  background-color: var(--color-bg-alt);
+  background-color: var(--color-deep-blue);
   padding: var(--space-2xl) 0;
   text-align: center;
 }
 
+.page-header h1 {
+  color: var(--color-white);
+}
+
 .page-header p {
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.8);
   max-width: 600px;
   margin: var(--space-sm) auto 0;
   font-size: 1.125rem;
@@ -649,12 +1028,16 @@ main {
   margin-bottom: var(--space-lg);
 }
 
+.project-header h1 {
+  color: var(--color-deep-blue);
+}
+
 .project-meta {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-md);
   margin-top: var(--space-sm);
-  color: var(--color-text-muted);
+  color: var(--color-charcoal-light);
   font-size: 0.9375rem;
 }
 
@@ -670,15 +1053,25 @@ main {
   padding: 0.25rem 0.75rem;
   background-color: var(--color-bg-alt);
   border-radius: 100px;
-  font-size: 0.8125rem;
-  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-deep-blue);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* CTA Section */
+.tag:hover {
+  background-color: var(--color-oak);
+  color: var(--color-white);
+}
+
+/* CTA Section - Deep blue bg, white text, oak/tan button */
 .cta-section {
   text-align: center;
   padding: var(--space-3xl) 0;
-  background-color: var(--color-slate);
+  background-color: var(--color-deep-blue);
   color: var(--color-white);
 }
 
@@ -688,9 +1081,21 @@ main {
 }
 
 .cta-section p {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.8);
   max-width: 500px;
   margin: 0 auto var(--space-lg);
+}
+
+/* CTA button - oak/tan accent */
+.cta-section .btn-primary,
+.cta-section .btn-accent {
+  background-color: var(--color-oak);
+  color: var(--color-white);
+}
+
+.cta-section .btn-primary:hover,
+.cta-section .btn-accent:hover {
+  background-color: var(--color-oak-dark);
 }
 
 /* Utility */

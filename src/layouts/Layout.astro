@@ -14,17 +14,17 @@ const currentPath = Astro.url.pathname;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
     <title>{title} | Grey Oak Remodel</title>
   </head>
   <body>
     <header class="site-header">
       <div class="container header-inner">
         <a href="/" class="logo">
-          <img src="/images/logo-full.jpg" alt="Grey Oak Remodel" class="logo-img" />
+          <img src="/images/brand/logo-icon.png" alt="Grey Oak Remodel" class="logo-img" />
         </a>
         <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
           <span></span>
@@ -38,7 +38,7 @@ const currentPath = Astro.url.pathname;
             <li><a href="/portfolio" class:list={["nav-link", { active: currentPath.startsWith("/portfolio") || currentPath.startsWith("/projects") }]}>Portfolio</a></li>
             <li><a href="/process" class:list={["nav-link", { active: currentPath === "/process" }]}>Process</a></li>
             <li><a href="/about" class:list={["nav-link", { active: currentPath === "/about" }]}>About</a></li>
-            <li><a href="/contact" class="btn btn-primary">Contact</a></li>
+            <li><a href="/contact" class="nav-cta">Get Started</a></li>
           </ul>
         </nav>
       </div>
@@ -53,7 +53,7 @@ const currentPath = Astro.url.pathname;
         <div class="footer-inner">
           <div class="footer-brand">
             <a href="/" class="footer-logo">
-              <img src="/images/logo-full.jpg" alt="Grey Oak Remodel" />
+              <img src="/images/brand/logo-full-color.png" alt="Grey Oak Remodel" class="footer-logo-img" />
             </a>
             <p class="mt-sm">Licensed & Insured in Colorado</p>
           </div>
@@ -70,9 +70,8 @@ const currentPath = Astro.url.pathname;
           <div class="footer-contact">
             <h4>Contact</h4>
             <p>Free consultations available.</p>
-            <!-- TODO: Replace with actual phone and email -->
-            <p class="mt-sm"><a href="tel:+1XXXXXXXXXX">Call Us</a></p>
-            <p><a href="mailto:hello@greyoakremodel.com">hello@greyoakremodel.com</a></p>
+            <p class="mt-sm"><a href="tel:+17209883809">(720) 988-3809</a></p>
+            <p><a href="mailto:c.burrus@greyoakremodel.com">c.burrus@greyoakremodel.com</a></p>
           </div>
         </div>
         <div class="footer-bottom">

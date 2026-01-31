@@ -7,6 +7,16 @@ const projects = await getCollection('projects');
 const recentProjects = projects
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
   .slice(0, 3);
+
+// Helper to get thumbnail URL from first media item
+function getThumbnail(media: Array<{ type: 'image' | 'video'; url: string; poster?: string }>): string {
+  const first = media[0];
+  if (!first) return '/images/placeholder.jpg';
+  if (first.type === 'video') {
+    return first.poster || '/images/video-placeholder.jpg';
+  }
+  return first.url;
+}
 ---
 
 <Layout title="Home">
@@ -91,17 +101,20 @@ const recentProjects = projects
         <p>Real projects from our crew. Updated from the field.</p>
       </div>
       <div class="card-grid">
-        {recentProjects.map((project) => (
-          <a href={`/projects/${project.id}`} class="card">
-            <div class="card-image">
-              <img src={project.data.images[0]} alt={project.data.title} loading="lazy" />
-            </div>
-            <div class="card-content">
-              <span class="card-tag">{project.data.tags[0]}</span>
-              <h3>{project.data.title}</h3>
-            </div>
-          </a>
-        ))}
+        {recentProjects.map((project) => {
+          const thumbnail = getThumbnail(project.data.media);
+          return (
+            <a href={`/projects/${project.id}`} class="card">
+              <div class="card-image">
+                <img src={thumbnail} alt={project.data.title} loading="lazy" />
+              </div>
+              <div class="card-content">
+                <span class="card-tag">{project.data.tags[0]}</span>
+                <h3>{project.data.title}</h3>
+              </div>
+            </a>
+          );
+        })}
       </div>
       <div class="text-center mt-lg">
         <a href="/portfolio" class="btn btn-secondary">View Full Portfolio</a>

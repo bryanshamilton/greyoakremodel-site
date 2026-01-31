@@ -3,10 +3,14 @@ title: "Stripped Down, Rebuilt Strong"
 date: "2024-10-22"
 tags: ["bathroom", "tile"]
 location: "Colorado"
-images:
-  - "/images/projects/bathroom-rebuild-1.jpg"
-  - "/images/projects/bathroom-rebuild-2.jpg"
-  - "/images/projects/bathroom-rebuild-3.jpg"
+media:
+  - type: image
+    url: "/images/projects/bathroom-rebuild-1.jpg"
+  - type: video
+    url: "/videos/projects/bathroom-rebuild-progress.mp4"
+    poster: "/images/projects/bathroom-rebuild-2.jpg"
+  - type: image
+    url: "/images/projects/bathroom-rebuild-3.jpg"
 featured: true
 ---
 

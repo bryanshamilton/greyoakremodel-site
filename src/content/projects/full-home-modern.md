@@ -3,11 +3,14 @@ title: "Opening Up, Modernizing Throughout"
 date: "2024-09-08"
 tags: ["full-home", "kitchen", "bathroom"]
 location: "Colorado"
-images:
-  - "/images/projects/full-home-1.jpg"
-  - "/images/projects/full-home-2.jpg"
-  - "/images/projects/full-home-3.jpg"
-  - "/images/projects/full-home-4.jpg"
+media:
+  - type: video
+    url: "/videos/projects/full-home-walkthrough.mp4"
+    poster: "/images/projects/full-home-1.jpg"
+  - type: image
+    url: "/images/projects/full-home-2.jpg"
+  - type: image
+    url: "/images/projects/full-home-3.jpg"
 featured: true
 ---
 

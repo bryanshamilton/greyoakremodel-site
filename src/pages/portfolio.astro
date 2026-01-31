@@ -6,6 +6,16 @@ const projects = await getCollection('projects');
 const sortedProjects = projects.sort((a, b) =>
   new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
+
+// Helper to get thumbnail URL from first media item
+function getThumbnail(media: Array<{ type: 'image' | 'video'; url: string; poster?: string }>): string {
+  const first = media[0];
+  if (!first) return '/images/placeholder.jpg';
+  if (first.type === 'video') {
+    return first.poster || '/images/video-placeholder.jpg';
+  }
+  return first.url;
+}
 ---
 
 <Layout title="Portfolio" description="Browse completed remodeling projects from Grey Oak Remodel. Bathrooms, kitchens, and whole-home renovations in Colorado.">
@@ -37,24 +47,29 @@ const sortedProjects = projects.sort((a, b) =>
       </div>
 
       <div class="card-grid" id="project-grid">
-        {sortedProjects.map((project) => (
-          <a
-            href={`/projects/${project.id}`}
-            class="card project-card"
-            data-tags={project.data.tags.join(' ')}
-          >
-            <div class="card-image">
-              <img src={project.data.images[0]} alt={project.data.title} loading="lazy" />
-            </div>
-            <div class="card-content">
-              <span class="card-tag">{project.data.tags[0]}</span>
-              <h3>{project.data.title}</h3>
-              {project.data.location && (
-                <p class="project-location">{project.data.location}</p>
-              )}
-            </div>
-          </a>
-        ))}
+        {sortedProjects.map((project) => {
+          const thumbnail = getThumbnail(project.data.media);
+          const isVideo = project.data.media[0]?.type === 'video';
+          return (
+            <a
+              href={`/projects/${project.id}`}
+              class="card project-card"
+              data-tags={project.data.tags.join(' ')}
+            >
+              <div class="card-image">
+                <img src={thumbnail} alt={project.data.title} loading="lazy" />
+                {isVideo && <span class="video-badge">Video</span>}
+              </div>
+              <div class="card-content">
+                <span class="card-tag">{project.data.tags[0]}</span>
+                <h3>{project.data.title}</h3>
+                {project.data.location && (
+                  <p class="project-location">{project.data.location}</p>
+                )}
+              </div>
+            </a>
+          );
+        })}
       </div>
 
       {sortedProjects.length === 0 && (
@@ -139,5 +154,23 @@ const sortedProjects = projects.sort((a, b) =>
     font-size: 0.875rem;
     color: var(--color-text-muted);
     margin-top: var(--space-xs);
+  }
+
+  .card-image {
+    position: relative;
+  }
+
+  .video-badge {
+    position: absolute;
+    top: var(--space-sm);
+    left: var(--space-sm);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: var(--color-white);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 </style>

@@ -20,6 +20,16 @@ const formatDate = (dateString: string) => {
     month: 'long'
   });
 };
+
+// Helper to get thumbnail for a media item
+function getThumb(item: { type: 'image' | 'video'; url: string; poster?: string }): string {
+  if (item.type === 'video') {
+    return item.poster || '/images/video-placeholder.jpg';
+  }
+  return item.url;
+}
+
+const firstMedia = project.data.media[0];
 ---
 
 <Layout title={project.data.title} description={`${project.data.title} - A remodeling project by Grey Oak Remodel in Colorado.`}>
@@ -39,21 +49,38 @@ const formatDate = (dateString: string) => {
       <div class="project-layout">
         <div class="project-gallery">
           <div class="gallery">
-            <div class="gallery-main">
-              <img
-                src={project.data.images[0]}
-                alt={project.data.title}
-                id="main-image"
-              />
+            <div class="gallery-main" id="gallery-main">
+              {firstMedia?.type === 'video' ? (
+                <video
+                  controls
+                  playsinline
+                  preload="metadata"
+                  poster={firstMedia.poster}
+                  id="main-video"
+                >
+                  <source src={firstMedia.url} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <img
+                  src={firstMedia?.url}
+                  alt={project.data.title}
+                  id="main-image"
+                />
+              )}
             </div>
-            {project.data.images.length > 1 && (
+            {project.data.media.length > 1 && (
               <div class="gallery-thumbs">
-                {project.data.images.map((image, index) => (
+                {project.data.media.map((item, index) => (
                   <button
                     class:list={["gallery-thumb", { active: index === 0 }]}
-                    data-src={image}
+                    data-type={item.type}
+                    data-src={item.url}
+                    data-poster={item.poster || ''}
+                    data-index={index}
                   >
-                    <img src={image} alt={`${project.data.title} - Image ${index + 1}`} />
+                    <img src={getThumb(item)} alt={`${project.data.title} - ${index + 1}`} />
+                    {item.type === 'video' && <span class="thumb-video-icon">▶</span>}
                   </button>
                 ))}
               </div>
@@ -84,16 +111,31 @@ const formatDate = (dateString: string) => {
 </Layout>
 
 <script>
-  const mainImage = document.getElementById('main-image') as HTMLImageElement;
+  const galleryMain = document.getElementById('gallery-main');
   const thumbs = document.querySelectorAll('.gallery-thumb');
 
   thumbs.forEach(thumb => {
     thumb.addEventListener('click', () => {
+      const type = thumb.getAttribute('data-type');
       const src = thumb.getAttribute('data-src');
-      if (src && mainImage) {
-        mainImage.src = src;
-        thumbs.forEach(t => t.classList.remove('active'));
-        thumb.classList.add('active');
+      const poster = thumb.getAttribute('data-poster');
+
+      if (!galleryMain || !src) return;
+
+      // Update active state
+      thumbs.forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+
+      // Replace main content
+      if (type === 'video') {
+        galleryMain.innerHTML = `
+          <video controls playsinline preload="metadata" ${poster ? `poster="${poster}"` : ''}>
+            <source src="${src}" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        `;
+      } else {
+        galleryMain.innerHTML = `<img src="${src}" alt="Project image" />`;
       }
     });
   });
@@ -122,6 +164,81 @@ const formatDate = (dateString: string) => {
       grid-template-columns: 1.5fr 1fr;
       align-items: start;
     }
+  }
+
+  .gallery {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .gallery-main {
+    aspect-ratio: 16 / 10;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--color-bg-alt);
+  }
+
+  .gallery-main img,
+  .gallery-main video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .gallery-main video {
+    object-fit: contain;
+    background-color: #000;
+  }
+
+  .gallery-thumbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: var(--space-xs);
+  }
+
+  .gallery-thumb {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    border: 2px solid transparent;
+    padding: 0;
+    background: none;
+  }
+
+  .gallery-thumb:hover,
+  .gallery-thumb.active {
+    opacity: 1;
+  }
+
+  .gallery-thumb.active {
+    border-color: var(--color-accent);
+  }
+
+  .gallery-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .thumb-video-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    padding-left: 2px;
   }
 
   .project-description {

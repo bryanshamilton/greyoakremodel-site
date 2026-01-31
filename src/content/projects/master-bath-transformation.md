@@ -3,10 +3,13 @@ title: "Master Bath Transformation"
 date: "2024-11-15"
 tags: ["bathroom", "tile", "custom"]
 location: "Colorado"
-images:
-  - "/images/projects/master-bath-1.jpg"
-  - "/images/projects/master-bath-2.jpg"
-  - "/images/projects/master-bath-3.jpg"
+media:
+  - type: image
+    url: "/images/projects/master-bath-1.jpg"
+  - type: image
+    url: "/images/projects/master-bath-2.jpg"
+  - type: image
+    url: "/images/projects/master-bath-3.jpg"
 featured: true
 ---
 

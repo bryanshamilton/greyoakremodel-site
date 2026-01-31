@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
+import { getMediaUrl } from '../../config';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -24,9 +25,9 @@ const formatDate = (dateString: string) => {
 // Helper to get thumbnail for a media item
 function getThumb(item: { type: 'image' | 'video'; url: string; poster?: string }): string {
   if (item.type === 'video') {
-    return item.poster || '/images/video-placeholder.jpg';
+    return getMediaUrl(item.poster || '/images/video-placeholder.jpg');
   }
-  return item.url;
+  return getMediaUrl(item.url);
 }
 
 const firstMedia = project.data.media[0];
@@ -55,15 +56,15 @@ const firstMedia = project.data.media[0];
                   controls
                   playsinline
                   preload="metadata"
-                  poster={firstMedia.poster}
+                  poster={firstMedia.poster ? getMediaUrl(firstMedia.poster) : undefined}
                   id="main-video"
                 >
-                  <source src={firstMedia.url} type="video/mp4" />
+                  <source src={getMediaUrl(firstMedia.url)} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               ) : (
                 <img
-                  src={firstMedia?.url}
+                  src={firstMedia ? getMediaUrl(firstMedia.url) : '/images/placeholder.jpg'}
                   alt={project.data.title}
                   id="main-image"
                 />
@@ -75,8 +76,8 @@ const firstMedia = project.data.media[0];
                   <button
                     class:list={["gallery-thumb", { active: index === 0 }]}
                     data-type={item.type}
-                    data-src={item.url}
-                    data-poster={item.poster || ''}
+                    data-src={getMediaUrl(item.url)}
+                    data-poster={item.poster ? getMediaUrl(item.poster) : ''}
                     data-index={index}
                   >
                     <img src={getThumb(item)} alt={`${project.data.title} - ${index + 1}`} />

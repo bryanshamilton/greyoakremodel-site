@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { getMediaUrl } from '../config';
 
 const projects = await getCollection('projects');
 const sortedProjects = projects.sort((a, b) =>
@@ -12,9 +13,9 @@ function getThumbnail(media: Array<{ type: 'image' | 'video'; url: string; poste
   const first = media[0];
   if (!first) return '/images/placeholder.jpg';
   if (first.type === 'video') {
-    return first.poster || '/images/video-placeholder.jpg';
+    return getMediaUrl(first.poster || '/images/video-placeholder.jpg');
   }
-  return first.url;
+  return getMediaUrl(first.url);
 }
 ---
 

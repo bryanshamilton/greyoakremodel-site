@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Reviews from '../components/Reviews.astro';
 import { getCollection } from 'astro:content';
+import { getMediaUrl } from '../config';
 
 const projects = await getCollection('projects');
 const recentProjects = projects
@@ -13,9 +14,9 @@ function getThumbnail(media: Array<{ type: 'image' | 'video'; url: string; poste
   const first = media[0];
   if (!first) return '/images/placeholder.jpg';
   if (first.type === 'video') {
-    return first.poster || '/images/video-placeholder.jpg';
+    return getMediaUrl(first.poster || '/images/video-placeholder.jpg');
   }
-  return first.url;
+  return getMediaUrl(first.url);
 }
 ---
 

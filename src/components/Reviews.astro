@@ -1,299 +1,121 @@
 ---
-// Reviews component - fetches from /api/reviews at runtime via client-side JS
+/*
+ * Static Reviews Component
+ *
+ * TODO: Switch to dynamic Google Places API when Place ID indexing is resolved.
+ * The business is a service-area business which has known indexing issues with
+ * the Places API. Once the Place ID (ChIJQQTkGJYDagwRAqf6m6shEFw) is properly
+ * indexed, we can restore the dynamic /api/reviews endpoint.
+ *
+ * Google Maps listing: https://www.google.com/maps/place/Grey+Oak+Remodel
+ */
+
+const googleReviewsUrl = "https://www.google.com/search?q=Grey+Oak+Remodel+Colorado+reviews#";
 ---
 
 <section class="section reviews-section" id="reviews">
   <div class="container">
     <div class="section-header">
       <h2>What Our Clients Say</h2>
-      <div class="overall-rating" id="overall-rating">
-        <div class="rating-stars" id="rating-stars"></div>
-        <span class="rating-text" id="rating-text"></span>
+    </div>
+
+    <div class="reviews-display">
+      <div class="rating-badge">
+        <span class="rating-number">5.0</span>
+        <div class="rating-stars">
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+        <span class="rating-count">8 reviews on Google</span>
       </div>
-    </div>
 
-    <div class="reviews-grid" id="reviews-grid">
-      <div class="reviews-loading">Loading reviews...</div>
-    </div>
-
-    <div class="reviews-attribution">
-      <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">
-        <img src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" alt="Google" width="24" height="24" />
-        Reviews from Google
-      </a>
+      <div class="reviews-cta">
+        <a href={googleReviewsUrl} target="_blank" rel="noopener noreferrer" class="btn btn-reviews">
+          <img src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" alt="" width="20" height="20" />
+          See All Reviews
+        </a>
+      </div>
     </div>
   </div>
 </section>
-
-<script>
-interface Review {
-  author_name: string;
-  rating: number;
-  relative_time_description: string;
-  text: string;
-  profile_photo_url?: string;
-}
-
-interface ReviewsData {
-  reviews: Review[];
-  rating: number;
-  totalReviews: number;
-  error?: string;
-}
-
-function renderStars(rating: number): string {
-  const fullStars = Math.floor(rating);
-  const hasHalfStar = rating % 1 >= 0.5;
-  let stars = '';
-
-  for (let i = 0; i < 5; i++) {
-    if (i < fullStars) {
-      stars += '<span class="star full">★</span>';
-    } else if (i === fullStars && hasHalfStar) {
-      stars += '<span class="star half">★</span>';
-    } else {
-      stars += '<span class="star empty">☆</span>';
-    }
-  }
-  return stars;
-}
-
-function truncateText(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength).trim() + '...';
-}
-
-function renderReview(review: Review): string {
-  const initials = review.author_name
-    .split(' ')
-    .map(n => n[0])
-    .join('')
-    .substring(0, 2)
-    .toUpperCase();
-
-  return `
-    <div class="review-card">
-      <div class="review-header">
-        <div class="review-avatar">
-          ${review.profile_photo_url
-            ? `<img src="${review.profile_photo_url}" alt="${review.author_name}" />`
-            : `<span>${initials}</span>`
-          }
-        </div>
-        <div class="review-meta">
-          <div class="review-author">${review.author_name}</div>
-          <div class="review-date">${review.relative_time_description}</div>
-        </div>
-      </div>
-      <div class="review-rating">${renderStars(review.rating)}</div>
-      <p class="review-text">${truncateText(review.text, 200)}</p>
-    </div>
-  `;
-}
-
-async function loadReviews() {
-  const grid = document.getElementById('reviews-grid');
-  const ratingStars = document.getElementById('rating-stars');
-  const ratingText = document.getElementById('rating-text');
-  const overallRating = document.getElementById('overall-rating');
-
-  if (!grid) return;
-
-  try {
-    const response = await fetch('/api/reviews');
-    const data: ReviewsData = await response.json();
-
-    if (data.error && data.reviews.length === 0) {
-      grid.innerHTML = '<p class="reviews-placeholder">Reviews coming soon.</p>';
-      overallRating?.classList.add('hidden');
-      return;
-    }
-
-    if (data.reviews.length === 0) {
-      grid.innerHTML = '<p class="reviews-placeholder">No reviews yet.</p>';
-      overallRating?.classList.add('hidden');
-      return;
-    }
-
-    // Render overall rating
-    if (ratingStars && ratingText && data.rating > 0) {
-      ratingStars.innerHTML = renderStars(data.rating);
-      ratingText.textContent = `${data.rating.toFixed(1)} out of 5 based on ${data.totalReviews} reviews`;
-    }
-
-    // Render reviews (show up to 3)
-    const reviewsToShow = data.reviews
-      .filter(r => r.rating >= 4 && r.text.length > 20)
-      .slice(0, 3);
-
-    if (reviewsToShow.length === 0) {
-      grid.innerHTML = '<p class="reviews-placeholder">Reviews coming soon.</p>';
-      return;
-    }
-
-    grid.innerHTML = reviewsToShow.map(renderReview).join('');
-  } catch (error) {
-    console.error('Failed to load reviews:', error);
-    grid.innerHTML = '<p class="reviews-placeholder">Reviews coming soon.</p>';
-    overallRating?.classList.add('hidden');
-  }
-}
-
-// Load reviews when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', loadReviews);
-} else {
-  loadReviews();
-}
-</script>
 
 <style>
   .reviews-section {
     background-color: var(--color-bg-alt);
   }
 
-  .overall-rating {
+  .reviews-display {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-    margin-top: var(--space-sm);
+    gap: var(--space-lg);
+    margin-top: var(--space-lg);
   }
 
-  .overall-rating.hidden {
-    display: none;
+  .rating-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-lg) var(--space-2xl);
+    background-color: var(--color-white);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--color-border);
+  }
+
+  .rating-number {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--color-deep-blue);
+    line-height: 1;
   }
 
   .rating-stars {
     display: flex;
-    gap: 2px;
-  }
-
-  .rating-text {
-    color: var(--color-text-muted);
-    font-size: 0.9375rem;
+    gap: 4px;
   }
 
   .star {
-    font-size: 1.25rem;
+    font-size: 1.75rem;
+    color: var(--color-oak);
     line-height: 1;
   }
 
-  .star.full {
-    color: #fbbc04;
-  }
-
-  .star.half {
-    color: #fbbc04;
-    opacity: 0.6;
-  }
-
-  .star.empty {
-    color: #dadce0;
-  }
-
-  .reviews-grid {
-    display: grid;
-    gap: var(--space-md);
-    margin-top: var(--space-xl);
-  }
-
-  @media (min-width: 768px) {
-    .reviews-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .review-card {
-    background-color: var(--color-white);
-    border-radius: 8px;
-    padding: var(--space-lg);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  }
-
-  .review-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-sm);
-  }
-
-  .review-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    background-color: var(--color-slate);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .review-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .review-avatar span {
-    color: var(--color-white);
-    font-size: 0.875rem;
-    font-weight: 600;
-  }
-
-  .review-author {
-    font-weight: 500;
-    color: var(--color-slate);
-  }
-
-  .review-date {
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
-  }
-
-  .review-rating {
-    margin-bottom: var(--space-sm);
-  }
-
-  .review-rating .star {
+  .rating-count {
     font-size: 1rem;
-  }
-
-  .review-text {
-    color: var(--color-text);
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  .reviews-loading,
-  .reviews-placeholder {
-    text-align: center;
     color: var(--color-text-muted);
-    padding: var(--space-xl);
-    grid-column: 1 / -1;
+    margin-top: var(--space-xs);
   }
 
-  .reviews-attribution {
-    margin-top: var(--space-lg);
-    text-align: center;
+  .reviews-cta {
+    margin-top: var(--space-sm);
   }
 
-  .reviews-attribution a {
+  .btn-reviews {
     display: inline-flex;
     align-items: center;
     gap: var(--space-xs);
-    color: var(--color-text-muted);
-    font-size: 0.875rem;
-    transition: color 0.2s ease;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-deep-blue);
+    color: var(--color-white);
+    font-family: var(--font-heading);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
   }
 
-  .reviews-attribution a:hover {
-    color: var(--color-text);
+  .btn-reviews:hover {
+    background-color: var(--color-deep-blue-light);
+    color: var(--color-white);
   }
 
-  .reviews-attribution img {
-    display: inline-block;
+  .btn-reviews img {
+    display: block;
   }
 </style>

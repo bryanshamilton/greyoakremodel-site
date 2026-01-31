@@ -23,7 +23,9 @@ const currentPath = Astro.url.pathname;
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <a href="/" class="logo">Grey <span>Oak</span></a>
+        <a href="/" class="logo">
+          <img src="/images/logo-full.jpg" alt="Grey Oak Remodel" class="logo-img" />
+        </a>
         <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
           <span></span>
           <span></span>
@@ -50,8 +52,9 @@ const currentPath = Astro.url.pathname;
       <div class="container">
         <div class="footer-inner">
           <div class="footer-brand">
-            <a href="/" class="logo">Grey <span>Oak</span></a>
-            <p>Elevating homes with purpose and passion.</p>
+            <a href="/" class="footer-logo">
+              <img src="/images/logo-full.jpg" alt="Grey Oak Remodel" />
+            </a>
             <p class="mt-sm">Licensed & Insured in Colorado</p>
           </div>
           <div class="footer-nav">

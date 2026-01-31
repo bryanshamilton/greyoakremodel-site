@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor">
+  <!-- Outer house shape -->
+  <path d="M50 5 L95 45 L95 55 L85 55 L85 48 L50 18 L15 48 L15 55 L5 55 L5 45 Z"/>
+  <!-- Inner house/maze shape -->
+  <path d="M50 28 L75 50 L75 60 L65 60 L65 53 L50 40 L35 53 L35 60 L25 60 L25 50 Z"/>
+  <!-- Bottom connector -->
+  <path d="M35 65 L35 95 L45 95 L45 75 L55 75 L55 95 L65 95 L65 65 L75 65 L75 75 L85 75 L85 55 L75 55 L75 60 L65 60 L65 70 L55 70 L55 90 L45 90 L45 70 L35 70 L35 60 L25 60 L25 55 L15 55 L15 75 L25 75 L25 65 Z"/>
+</svg>

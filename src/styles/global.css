@@ -1,11 +1,11 @@
 /* Grey Oak Remodel - Global Styles */
 
 :root {
-  /* Colors */
-  --color-slate: #2d3436;
-  --color-slate-light: #4a5568;
-  --color-accent: #c9a66b;
-  --color-accent-dark: #b8956a;
+  /* Colors - matched to logo */
+  --color-slate: #14384d;
+  --color-slate-light: #1e4a5f;
+  --color-accent: #c9a227;
+  --color-accent-dark: #b8922a;
   --color-bg: #fafafa;
   --color-bg-alt: #f0efed;
   --color-text: #333333;
@@ -139,8 +139,7 @@ p {
   left: 0;
   right: 0;
   height: var(--header-height);
-  background-color: var(--color-white);
-  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-slate);
   z-index: 1000;
 }
 
@@ -152,14 +151,13 @@ p {
 }
 
 .logo {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--color-slate);
-  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
 }
 
-.logo span {
-  color: var(--color-accent);
+.logo-img {
+  height: 50px;
+  width: auto;
 }
 
 .nav-toggle {
@@ -176,7 +174,7 @@ p {
   display: block;
   width: 24px;
   height: 2px;
-  background-color: var(--color-slate);
+  background-color: var(--color-white);
   transition: all 0.2s ease;
 }
 
@@ -186,8 +184,8 @@ p {
   top: var(--header-height);
   left: 0;
   right: 0;
-  background-color: var(--color-white);
-  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-slate);
+  border-bottom: 1px solid var(--color-slate-light);
   padding: var(--space-md);
 }
 
@@ -205,7 +203,7 @@ p {
   display: block;
   padding: var(--space-xs) 0;
   font-size: 1rem;
-  color: var(--color-slate-light);
+  color: rgba(255, 255, 255, 0.8);
   transition: color 0.2s ease;
 }
 
@@ -222,6 +220,7 @@ p {
   .main-nav {
     display: block;
     position: static;
+    background: transparent;
     border: none;
     padding: 0;
   }
@@ -229,6 +228,7 @@ p {
   .nav-list {
     flex-direction: row;
     gap: var(--space-lg);
+    align-items: center;
   }
 
   .nav-link {
@@ -252,6 +252,11 @@ main {
 .footer-inner {
   display: grid;
   gap: var(--space-xl);
+}
+
+.footer-logo img {
+  max-width: 200px;
+  height: auto;
 }
 
 .footer-brand p {
